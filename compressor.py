@@ -89,13 +89,20 @@ def process_image(image_array, k):
     mse, psnr, ssim = quality_metrics(image_array, compressed)
 
     metrics = {
-        "unique_colours": len(np.unique(compressed.reshape(-1, 3), axis=0)),
+        "unique_colours": len(
+            np.unique(compressed.reshape(-1, 3), axis=0)
+        ),
         "mse": mse,
         "psnr": psnr,
         "ssim": ssim,
-        "png_rgb_bytes": png_rgb_size(compressed),
-        "png_indexed_bytes": png_indexed_size(compressed),
-        "jpeg_bytes": jpeg_size(compressed)
+
+        "png_rgb_original": png_rgb_size(image_array),
+        "png_rgb_quantized": png_rgb_size(compressed),
+
+        "png_indexed_quantized": png_indexed_size(compressed),
+
+        "jpeg_original": jpeg_size(image_array),
+        "jpeg_quantized": jpeg_size(compressed)
     }
 
     return compressed, palette, metrics
