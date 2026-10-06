@@ -88,9 +88,7 @@ def process_image(image_array, k):
     compressed, palette = kmeans_quantize(image_array, k)
     mse, psnr, ssim = quality_metrics(image_array, compressed)
 
-    return {
-        "compressed": compressed,
-        "palette": palette,
+       metrics = {
         "unique_colours": len(np.unique(compressed.reshape(-1, 3), axis=0)),
         "mse": mse,
         "psnr": psnr,
@@ -99,3 +97,5 @@ def process_image(image_array, k):
         "png_indexed_bytes": png_indexed_size(compressed),
         "jpeg_bytes": jpeg_size(compressed)
     }
+
+    return compressed, palette, metrics
