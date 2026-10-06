@@ -88,7 +88,7 @@ def process_image(image_array, k):
     compressed, palette = kmeans_quantize(image_array, k)
     mse, psnr, ssim = quality_metrics(image_array, compressed)
 
-       metrics = {
+    metrics = {
         "unique_colours": len(np.unique(compressed.reshape(-1, 3), axis=0)),
         "mse": mse,
         "psnr": psnr,
